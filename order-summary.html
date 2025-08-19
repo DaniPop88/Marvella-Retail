@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Summary | Marvella Retail Market</title>
+    <meta name="description" content="Order summary and checkout - Marvella Retail Market, your trusted shop in Muntinlupa.">
+    <link rel="icon" type="image/png" href="image/FAVICON.png">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #18734a;
+            --accent: #ffd84c;
+            --bg: #f6f8f5;
+            --text: #222;
+            --card: #fff;
+            --shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+        header {
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 44px;
+            height: 44px;
+            margin-right: 1rem;
+        }
+        .brand-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+        .checkout-container {
+            max-width: 500px;
+            margin: 2.5rem auto;
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .checkout-header {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        .checkout-steps {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.6rem;
+            text-align: center;
+        }
+        .summary-section {
+            background: #f8f9f7;
+            border-radius: 10px;
+            padding: 1rem 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .summary-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            font-size: 0.98rem;
+            color: #333;
+            border-bottom: 1px solid #ececec;
+        }
+        .summary-list li:last-child {
+            border-bottom: none;
+        }
+        .summary-total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-top: 0.8rem;
+            text-align: right;
+        }
+        .customer-info-section {
+            padding: 1rem 0 0.5rem 0;
+        }
+        .customer-info-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        .customer-info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.98rem;
+            color: #444;
+        }
+        .checkout-form-section {
+            margin-top: 1.4rem;
+        }
+        .form-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .checkout-form label {
+            font-size: 0.97rem;
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+        }
+        .checkout-form input, .checkout-form select, .checkout-form textarea {
+            padding: 0.5rem 0.7rem;
+            border: 1px solid #d5e5dd;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f8faf8;
+            transition: border 0.2s;
+        }
+        .checkout-form input:focus, .checkout-form select:focus, .checkout-form textarea:focus {
+            border: 1.5px solid var(--primary);
+            outline: none;
+        }
+        .checkout-btn {
+            margin-top: 1.1rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 7px;
+            padding: 0.8rem 0;
+            font-size: 1.08rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkout-btn:hover, .checkout-btn:focus {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        .confirmation-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: #f8fde8;
+            border-radius: 10px;
+            padding: 2rem 1.2rem;
+            margin: 1.3rem 0 0 0;
+            box-shadow: 0 2px 10px rgba(24,115,74,0.07);
+            color: #18673c;
+        }
+        .confirmation-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .confirmation-details {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+        }
+        .confirmation-instructions {
+            font-size: 0.99rem;
+            color: #18734a;
+            background: #fffde2;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            margin-bottom: 0.6rem;
+            border: 1px solid #ffe39b;
+        }
+        footer {
+            background: #222;
+            color: #eee;
+            padding: 2rem 0 1rem 0;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.98rem;
+        }
+        .footer-links {
+            margin: 0.7rem 0 0.5rem 0;
+        }
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            margin: 0 1.2rem;
+            font-weight: 500;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .footer-contact {
+            margin: 0.7rem 0;
+        }
+        @media (max-width: 690px) {
+            .checkout-container {
+                max-width: 99vw;
+                padding: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                gap: 0.7rem;
+                padding: 0.7rem 1rem;
+            }
+            .logo img {
+                width: 36px;
+                height: 36px;
+            }
+            .checkout-container {
+                padding: 0.7rem;
+            }
+            .confirmation-section {
+                padding: 1.3rem 0.6rem;
+            }
+            footer {
+                font-size: 0.92rem;
+                padding: 1rem 0 0.4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="image/LOGO.png" alt="Marvella Retail Market Logo">
+            <span class="brand-title">Marvella Retail Market</span>
+        </div>
+        <nav>
+            <a href="index.html" style="color:#fff;">Home</a>
+            <a href="#contact" style="color:#fff;">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="checkout-container">
+            <div class="checkout-header">Checkout Summary</div>
+            <div class="checkout-steps">
+                Review your order below and provide your details to complete your purchase.<br>
+                Once you submit, our team will reach out for final confirmation.
+            </div>
+            <div class="summary-section">
+                <div class="summary-title">Order Details</div>
+                <ul class="summary-list" id="orderSummaryList">
+                    <li><span>Rice 5kg</span><span>₱349.00 x 2</span></li>
+                    <li><span>Frozen Chicken (1kg)</span><span>₱199.25 x 1</span></li>
+                    <li><span>Toilet Paper (4 Rolls)</span><span>₱49.50 x 3</span></li>
+                    <!-- Example items, replace with dynamic values if needed -->
+                </ul>
+                <div class="summary-total" id="orderSummaryTotal">Grand Total: ₱696.75</div>
+            </div>
+            <div class="customer-info-section">
+                <div class="customer-info-title">Your Information</div>
+                <ul class="customer-info-list" id="customerInfoList">
+                    <li><strong>Name:</strong> <span id="customerNameDisp">--</span></li>
+                    <li><strong>Contact:</strong> <span id="customerContactDisp">--</span></li>
+                    <li><strong>Delivery Address:</strong> <span id="customerAddressDisp">--</span></li>
+                    <li><strong>Payment Method:</strong> <span id="customerPaymentDisp">--</span></li>
+                </ul>
+            </div>
+            <div class="checkout-form-section" id="checkoutFormSection">
+                <div class="form-title">Complete Your Purchase</div>
+                <form class="checkout-form" id="checkoutForm" autocomplete="off">
+                    <label for="customerName">Full Name</label>
+                    <input type="text" id="customerName" name="customerName" required placeholder="Your name">
+
+                    <label for="customerContact">Contact Number</label>
+                    <input type="tel" id="customerContact" name="customerContact" required placeholder="09xx-xxx-xxxx">
+
+                    <label for="customerAddress">Delivery Address</label>
+                    <textarea id="customerAddress" name="customerAddress" required rows="2" placeholder="Complete address"></textarea>
+
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="" disabled selected>Select payment option</option>
+                        <option value="cash">Cash on Delivery</option>
+                        <option value="gcash">GCash</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+
+                    <button type="submit" class="checkout-btn" id="checkoutBtn">Submit Order</button>
+                </form>
+            </div>
+            <div class="confirmation-section" id="confirmationSection">
+                <div class="confirmation-title">Order Submitted Successfully!</div>
+                <div class="confirmation-details">
+                    Thank you for placing your order with Marvella Retail Market.<br>
+                    One of our team members will contact you soon to confirm your order details, including product colors, available stock, and other preferences.<br>
+                    Please review and verify your order when contacted.
+                </div>
+                <div class="confirmation-instructions">
+                    After confirmation, we will send you a payment link based on your selected payment method.<br>
+                    <strong>To ensure your order is processed, please complete your payment within 24 hours. Failure to pay on time will result in automatic cancellation.</strong>
+                </div>
+                <div style="margin-top:0.5rem;font-size:1rem;">
+                    If you have questions, reach us at <a href="mailto:admin@marvellaretail.store" style="color:var(--primary);text-decoration:underline;">admin@marvellaretail.store</a> or <a href="tel:+639178245612" style="color:var(--primary);text-decoration:underline;">+63 917 824 5612</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="refund-policy.html">Refund Policy</a>
+        </div>
+        <div class="footer-contact">
+            Marvella Retail Market &copy; 2025 | VAT Reg. TIN: 182-945-673-000 | admin@marvellaretail.store
+        </div>
+        <div>
+            101 San Guillermo St, Bayanan, Muntinlupa City, NCR, 1772
+        </div>
+    </footer>
+    <script>
+        // Example order data - replace with real cart data if available
+        const orderItems = [
+            { name: "Rice 5kg", qty: 2, price: 349.00 },
+            { name: "Frozen Chicken (1kg)", qty: 1, price: 199.25 },
+            { name: "Toilet Paper (4 Rolls)", qty: 3, price: 49.50 }
+        ];
+
+        function renderOrderSummary() {
+            const list = document.getElementById('orderSummaryList');
+            const totalElem = document.getElementById('orderSummaryTotal');
+            list.innerHTML = '';
+            let total = 0;
+            orderItems.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${item.name}</span><span>₱${item.price.toFixed(2)} x ${item.qty}</span>`;
+                list.appendChild(li);
+                total += item.price * item.qty;
+            });
+            totalElem.textContent = `Grand Total: ₱${total.toFixed(2)}`;
+        }
+        renderOrderSummary();
+
+        // Form handling and confirmation
+        const checkoutForm = document.getElementById('checkoutForm');
+        const confirmationSection = document.getElementById('confirmationSection');
+        const checkoutFormSection = document.getElementById('checkoutFormSection');
+        const customerInfoList = document.getElementById('customerInfoList');
+        function updateCustomerInfo() {
+            document.getElementById('customerNameDisp').textContent = document.getElementById('customerName').value || '--';
+            document.getElementById('customerContactDisp').textContent = document.getElementById('customerContact').value || '--';
+            document.getElementById('customerAddressDisp').textContent = document.getElementById('customerAddress').value || '--';
+            let pm = document.getElementById('paymentMethod');
+            document.getElementById('customerPaymentDisp').textContent = pm.options[pm.selectedIndex]?.text || '--';
+        }
+        ['customerName','customerContact','customerAddress','paymentMethod'].forEach(function(id){
+            document.getElementById(id).addEventListener('input',updateCustomerInfo);
+            document.getElementById(id).addEventListener('change',updateCustomerInfo);
+        });
+        checkoutForm.addEventListener('submit', function(e){
+            e.preventDefault();
+            updateCustomerInfo();
+            checkoutFormSection.style.display = 'none';
+            confirmationSection.style.display = 'flex';
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+        // On load, show '--' for info
+        updateCustomerInfo();
+    </script>
+</body>
+</html>
